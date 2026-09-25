@@ -9,7 +9,7 @@
     <tr style="text-align: right;">
       <th>周期</th>
       <th>预测周期</th>
-      <th>基准时间</th>
+      <th>基准时间（北京时间）</th>
       <th>最新价格</th>
       <th>走势</th>
       <th>上涨概率</th>
@@ -30,6 +30,8 @@
       <th>状态调整置信度</th>
       <th>置信度等级</th>
       <th>样本外准确率</th>
+      <th>信号覆盖率</th>
+      <th>信号准确率</th>
       <th>样本外AUC</th>
     </tr>
   </thead>
@@ -37,7 +39,7 @@
     <tr>
       <td>D1</td>
       <td>未来 1 根 K 线</td>
-      <td>2026-09-24 00:00:00</td>
+      <td>2026-09-24 05:00</td>
       <td>4289.99</td>
       <td>偏多</td>
       <td>59.46%</td>
@@ -58,18 +60,20 @@
       <td>50.10%</td>
       <td>中</td>
       <td>52.60%</td>
+      <td>42.64%</td>
+      <td>53.41%</td>
       <td>0.5371</td>
     </tr>
     <tr>
       <td>H1_12bar</td>
       <td>未来 12 根 K 线</td>
-      <td>2026-09-25 20:00:00</td>
-      <td>4291.76</td>
-      <td>震荡/方向不明</td>
-      <td>47.13%</td>
-      <td>52.87%</td>
-      <td>4296.07</td>
-      <td>4227.43 - 4344.06</td>
+      <td>2026-09-26 03:00</td>
+      <td>4294.23</td>
+      <td>偏空</td>
+      <td>38.85%</td>
+      <td>61.15%</td>
+      <td>4293.24</td>
+      <td>4222.14 - 4339.30</td>
       <td>xgb</td>
       <td>h1_external_intraday_v4_gld</td>
       <td>isotonic</td>
@@ -79,12 +83,14 @@
       <td>normal</td>
       <td>较高</td>
       <td>13820</td>
-      <td>57.32%</td>
+      <td>57.54%</td>
       <td>91.50%</td>
-      <td>48.38%</td>
+      <td>55.95%</td>
       <td>中</td>
-      <td>57.32%</td>
-      <td>0.5753</td>
+      <td>57.54%</td>
+      <td>74.80%</td>
+      <td>59.59%</td>
+      <td>0.5787</td>
     </tr>
   </tbody>
 </table>
@@ -95,7 +101,7 @@
 <h2>模型说明</h2>
 <ul>
 <li>D1 使用 Logistic + d1_external 特征集。</li>
-<li>H1 使用 XGBoost + h1_external_intraday_v3 特征集，预测未来 12 根 K 线，并纳入事件惊喜、CFTC 持仓、实际利率和长周期 M15 日内特征。</li>
+<li>H1 使用 XGBoost + h1_external_intraday_v4_gld 特征集，预测未来 12 根 K 线，并纳入事件惊喜、CFTC 持仓、实际利率和长周期 M15 日内特征。</li>
 <li>H1 最终概率使用 isotonic 校准；AUC/准确率来自原始 walk-forward 验证。</li>
 <li>高概率区间仍需谨慎，历史分箱显示原始概率在高区间偏乐观。</li>
 </ul>
@@ -182,7 +188,7 @@
       <td></td>
     </tr>
   </tbody>
-</table><h3>H1_12bar 概率可靠性分箱</h3><p>ECE 校准误差：5.85%。ECE 越小，概率越可信。</p><table class="dataframe">
+</table><h3>H1_12bar 概率可靠性分箱</h3><p>ECE 校准误差：5.36%。ECE 越小，概率越可信。</p><table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th>概率区间</th>
@@ -202,66 +208,66 @@
     </tr>
     <tr>
       <td>0.1-0.2</td>
-      <td>41</td>
-      <td>15.93%</td>
-      <td>39.02%</td>
-      <td>23.10%</td>
+      <td>39</td>
+      <td>16.10%</td>
+      <td>43.59%</td>
+      <td>27.49%</td>
     </tr>
     <tr>
       <td>0.2-0.3</td>
-      <td>278</td>
-      <td>26.54%</td>
-      <td>32.37%</td>
-      <td>5.84%</td>
+      <td>290</td>
+      <td>26.66%</td>
+      <td>33.45%</td>
+      <td>6.79%</td>
     </tr>
     <tr>
       <td>0.3-0.4</td>
-      <td>909</td>
-      <td>35.82%</td>
-      <td>42.13%</td>
-      <td>6.31%</td>
+      <td>884</td>
+      <td>35.85%</td>
+      <td>40.50%</td>
+      <td>4.65%</td>
     </tr>
     <tr>
       <td>0.4-0.5</td>
-      <td>2581</td>
-      <td>45.73%</td>
-      <td>49.40%</td>
-      <td>3.67%</td>
+      <td>2597</td>
+      <td>45.61%</td>
+      <td>49.17%</td>
+      <td>3.57%</td>
     </tr>
     <tr>
       <td>0.5-0.6</td>
-      <td>3772</td>
-      <td>55.02%</td>
-      <td>55.04%</td>
-      <td>0.02%</td>
+      <td>3905</td>
+      <td>54.99%</td>
+      <td>55.19%</td>
+      <td>0.20%</td>
     </tr>
     <tr>
       <td>0.6-0.7</td>
-      <td>3311</td>
-      <td>64.61%</td>
-      <td>59.56%</td>
-      <td>-5.05%</td>
+      <td>3376</td>
+      <td>64.66%</td>
+      <td>59.80%</td>
+      <td>-4.86%</td>
     </tr>
     <tr>
       <td>0.7-0.8</td>
-      <td>1931</td>
-      <td>74.44%</td>
-      <td>62.30%</td>
-      <td>-12.14%</td>
+      <td>1865</td>
+      <td>74.46%</td>
+      <td>62.84%</td>
+      <td>-11.62%</td>
     </tr>
     <tr>
       <td>0.8-0.9</td>
-      <td>869</td>
-      <td>84.63%</td>
-      <td>62.26%</td>
-      <td>-22.37%</td>
+      <td>810</td>
+      <td>84.41%</td>
+      <td>63.21%</td>
+      <td>-21.20%</td>
     </tr>
     <tr>
       <td>0.9-1.0</td>
-      <td>128</td>
-      <td>91.34%</td>
-      <td>65.62%</td>
-      <td>-25.72%</td>
+      <td>54</td>
+      <td>91.02%</td>
+      <td>61.11%</td>
+      <td>-29.91%</td>
     </tr>
   </tbody>
 </table>
