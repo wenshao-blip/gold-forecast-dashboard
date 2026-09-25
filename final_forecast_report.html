@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>黄金最终预测报告</title>
+<style>body{font-family:Arial,sans-serif;margin:32px;color:#1f2933}table{border-collapse:collapse;width:100%}th,td{border-bottom:1px solid #ddd;padding:8px;text-align:left}th{background:#f8fafc}.note{background:#fff8e1;padding:12px;border-left:4px solid #d69e2e}</style>
+</head><body>
+<h1>黄金 XAUUSD 最终预测报告</h1>
+<p class="note">这是研究型预测，不是投资建议，也不包含下单功能。</p>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>周期</th>
+      <th>预测周期</th>
+      <th>基准时间</th>
+      <th>最新价格</th>
+      <th>走势</th>
+      <th>上涨概率</th>
+      <th>下跌概率</th>
+      <th>预期价格</th>
+      <th>参考区间</th>
+      <th>模型</th>
+      <th>特征集</th>
+      <th>概率校准</th>
+      <th>模型质量</th>
+      <th>当前状态</th>
+      <th>状态质量</th>
+      <th>事件窗口</th>
+      <th>事件窗口质量</th>
+      <th>事件窗口样本</th>
+      <th>事件窗口历史准确率</th>
+      <th>可信度系数</th>
+      <th>状态调整置信度</th>
+      <th>置信度等级</th>
+      <th>样本外准确率</th>
+      <th>样本外AUC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>D1</td>
+      <td>未来 1 根 K 线</td>
+      <td>2026-09-24 00:00:00</td>
+      <td>4289.99</td>
+      <td>偏多</td>
+      <td>59.46%</td>
+      <td>40.54%</td>
+      <td>4302.14</td>
+      <td>4251.82 - 4356.04</td>
+      <td>logistic</td>
+      <td>d1_best</td>
+      <td>none</td>
+      <td>低（暂不建议依赖）</td>
+      <td>weak_trend_low_vol</td>
+      <td>低</td>
+      <td>normal</td>
+      <td>中等</td>
+      <td>2920</td>
+      <td>52.60%</td>
+      <td>84.25%</td>
+      <td>50.10%</td>
+      <td>中</td>
+      <td>52.60%</td>
+      <td>0.5371</td>
+    </tr>
+    <tr>
+      <td>H1_12bar</td>
+      <td>未来 12 根 K 线</td>
+      <td>2026-09-25 20:00:00</td>
+      <td>4291.76</td>
+      <td>震荡/方向不明</td>
+      <td>47.13%</td>
+      <td>52.87%</td>
+      <td>4296.07</td>
+      <td>4227.43 - 4344.06</td>
+      <td>xgb</td>
+      <td>h1_external_intraday_v4_gld</td>
+      <td>isotonic</td>
+      <td>偏低</td>
+      <td>weak_trend_low_vol</td>
+      <td>偏低</td>
+      <td>normal</td>
+      <td>较高</td>
+      <td>13820</td>
+      <td>57.32%</td>
+      <td>91.50%</td>
+      <td>48.38%</td>
+      <td>中</td>
+      <td>57.32%</td>
+      <td>0.5753</td>
+    </tr>
+  </tbody>
+</table>
+<h2>未来事件风险</h2>
+<p>未来 72 小时没有高/中影响事件。</p>
+<h2>今日实际值 vs 预期值</h2>
+<p>Nasdaq 当日经济事件不可用。</p>
+<h2>模型说明</h2>
+<ul>
+<li>D1 使用 Logistic + d1_external 特征集。</li>
+<li>H1 使用 XGBoost + h1_external_intraday_v3 特征集，预测未来 12 根 K 线，并纳入事件惊喜、CFTC 持仓、实际利率和长周期 M15 日内特征。</li>
+<li>H1 最终概率使用 isotonic 校准；AUC/准确率来自原始 walk-forward 验证。</li>
+<li>高概率区间仍需谨慎，历史分箱显示原始概率在高区间偏乐观。</li>
+</ul>
+<h2>概率可靠性分箱（原始验证概率）</h2>
+<h3>D1 概率可靠性分箱</h3><p>ECE 校准误差：4.43%。ECE 越小，概率越可信。</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>概率区间</th>
+      <th>样本数</th>
+      <th>平均预测概率</th>
+      <th>实际命中率</th>
+      <th>偏差</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.0-0.1</td>
+      <td>1</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+    </tr>
+    <tr>
+      <td>0.1-0.2</td>
+      <td>1</td>
+      <td>18.95%</td>
+      <td>0.00%</td>
+      <td>-18.95%</td>
+    </tr>
+    <tr>
+      <td>0.2-0.3</td>
+      <td>10</td>
+      <td>26.23%</td>
+      <td>30.00%</td>
+      <td>3.77%</td>
+    </tr>
+    <tr>
+      <td>0.3-0.4</td>
+      <td>214</td>
+      <td>37.00%</td>
+      <td>50.93%</td>
+      <td>13.93%</td>
+    </tr>
+    <tr>
+      <td>0.4-0.5</td>
+      <td>1366</td>
+      <td>46.06%</td>
+      <td>50.59%</td>
+      <td>4.53%</td>
+    </tr>
+    <tr>
+      <td>0.5-0.6</td>
+      <td>1160</td>
+      <td>53.88%</td>
+      <td>56.12%</td>
+      <td>2.25%</td>
+    </tr>
+    <tr>
+      <td>0.6-0.7</td>
+      <td>166</td>
+      <td>62.98%</td>
+      <td>56.63%</td>
+      <td>-6.35%</td>
+    </tr>
+    <tr>
+      <td>0.7-0.8</td>
+      <td>2</td>
+      <td>73.69%</td>
+      <td>100.00%</td>
+      <td>26.31%</td>
+    </tr>
+    <tr>
+      <td>0.8-0.9</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>0.9-1.0</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table><h3>H1_12bar 概率可靠性分箱</h3><p>ECE 校准误差：5.85%。ECE 越小，概率越可信。</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>概率区间</th>
+      <th>样本数</th>
+      <th>平均预测概率</th>
+      <th>实际命中率</th>
+      <th>偏差</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.0-0.1</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>0.1-0.2</td>
+      <td>41</td>
+      <td>15.93%</td>
+      <td>39.02%</td>
+      <td>23.10%</td>
+    </tr>
+    <tr>
+      <td>0.2-0.3</td>
+      <td>278</td>
+      <td>26.54%</td>
+      <td>32.37%</td>
+      <td>5.84%</td>
+    </tr>
+    <tr>
+      <td>0.3-0.4</td>
+      <td>909</td>
+      <td>35.82%</td>
+      <td>42.13%</td>
+      <td>6.31%</td>
+    </tr>
+    <tr>
+      <td>0.4-0.5</td>
+      <td>2581</td>
+      <td>45.73%</td>
+      <td>49.40%</td>
+      <td>3.67%</td>
+    </tr>
+    <tr>
+      <td>0.5-0.6</td>
+      <td>3772</td>
+      <td>55.02%</td>
+      <td>55.04%</td>
+      <td>0.02%</td>
+    </tr>
+    <tr>
+      <td>0.6-0.7</td>
+      <td>3311</td>
+      <td>64.61%</td>
+      <td>59.56%</td>
+      <td>-5.05%</td>
+    </tr>
+    <tr>
+      <td>0.7-0.8</td>
+      <td>1931</td>
+      <td>74.44%</td>
+      <td>62.30%</td>
+      <td>-12.14%</td>
+    </tr>
+    <tr>
+      <td>0.8-0.9</td>
+      <td>869</td>
+      <td>84.63%</td>
+      <td>62.26%</td>
+      <td>-22.37%</td>
+    </tr>
+    <tr>
+      <td>0.9-1.0</td>
+      <td>128</td>
+      <td>91.34%</td>
+      <td>65.62%</td>
+      <td>-25.72%</td>
+    </tr>
+  </tbody>
+</table>
+<h2>预测记录与滚动准确率</h2>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>case</th>
+      <th>evaluated_count</th>
+      <th>accuracy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>D1</td>
+      <td>7</td>
+      <td>85.71%</td>
+    </tr>
+    <tr>
+      <td>H1_4bar</td>
+      <td>2</td>
+      <td>100.00%</td>
+    </tr>
+  </tbody>
+</table>
+<h3>最近已回填预测</h3><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>run_time</th>
+      <th>case</th>
+      <th>forecast_date</th>
+      <th>target_date</th>
+      <th>direction</th>
+      <th>actual_direction</th>
+      <th>prediction_correct</th>
+      <th>actual_return</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2026-09-24 00:29:21</td>
+      <td>D1</td>
+      <td>2026-09-23 00:00:00</td>
+      <td>2026-09-24 00:00:00</td>
+      <td>偏多</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.12%</td>
+    </tr>
+    <tr>
+      <td>2026-09-24 00:31:48</td>
+      <td>D1</td>
+      <td>2026-09-23 00:00:00</td>
+      <td>2026-09-24 00:00:00</td>
+      <td>偏多</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.10%</td>
+    </tr>
+    <tr>
+      <td>2026-09-24 00:31:48</td>
+      <td>H1_4bar</td>
+      <td>2026-09-23 19:00:00</td>
+      <td>2026-09-23 23:00:00</td>
+      <td>偏多</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.04%</td>
+    </tr>
+    <tr>
+      <td>2026-09-24 01:40:29</td>
+      <td>D1</td>
+      <td>2026-09-23 00:00:00</td>
+      <td>2026-09-24 00:00:00</td>
+      <td>偏多</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.33%</td>
+    </tr>
+    <tr>
+      <td>2026-09-24 02:03:32</td>
+      <td>D1</td>
+      <td>2026-09-23 00:00:00</td>
+      <td>2026-09-24 00:00:00</td>
+      <td>偏多</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-0.04%</td>
+    </tr>
+    <tr>
+      <td>2026-09-24 02:03:32</td>
+      <td>H1_4bar</td>
+      <td>2026-09-16 16:00:00</td>
+      <td>2026-09-16 20:00:00</td>
+      <td>偏多</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.51%</td>
+    </tr>
+    <tr>
+      <td>2026-09-24 02:12:23</td>
+      <td>D1</td>
+      <td>2026-09-23 00:00:00</td>
+      <td>2026-09-24 00:00:00</td>
+      <td>偏多</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.01%</td>
+    </tr>
+    <tr>
+      <td>2026-09-24 02:29:08</td>
+      <td>D1</td>
+      <td>2026-09-23 00:00:00</td>
+      <td>2026-09-24 00:00:00</td>
+      <td>偏多</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.12%</td>
+    </tr>
+    <tr>
+      <td>2026-09-24 02:40:30</td>
+      <td>D1</td>
+      <td>2026-09-23 00:00:00</td>
+      <td>2026-09-24 00:00:00</td>
+      <td>偏多</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.11%</td>
+    </tr>
+  </tbody>
+</table>
+</body></html>
