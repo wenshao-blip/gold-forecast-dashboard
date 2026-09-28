@@ -1,3 +1,4 @@
 ﻿case,evaluated_count,accuracy
-D1,7,0.8571428571428571
+D1,32,0.1875
+H1_12bar,14,1.0
 H1_4bar,2,1.0
